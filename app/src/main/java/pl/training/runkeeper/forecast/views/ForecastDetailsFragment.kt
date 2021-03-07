@@ -1,8 +1,6 @@
 package pl.training.runkeeper.forecast.views
 
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,21 +24,14 @@ class ForecastDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // TODO Stworzyć widok szczegółowy pogody
-
-
-
         var alert: AlertDialog? = null
-        activity?.let {
-            DialogBox().show(it, view)
-
-            alert = AlertDialog.Builder(it)
+            DialogBox().show(requireContext(), view)
+            alert = AlertDialog.Builder(requireContext())
                 .setMessage("Dialog example")
                 .setPositiveButton(R.string.ok) { dialog, id ->  }
                 .setNegativeButton(R.string.cancel) { dialog, id ->  }
                 .create()
-        }
         binding.forecastDetailsImageBox.setOnClickListener {
             alert?.show()
         }

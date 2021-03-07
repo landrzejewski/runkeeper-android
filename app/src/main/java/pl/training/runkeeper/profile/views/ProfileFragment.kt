@@ -37,19 +37,15 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun bindViews() {
         val email = binding.profileEmail
         val dateOfBirth = binding.profileBirthDate
-        activity?.let { context ->
-            email.textChanges()
-                .map { viewModel.isEmailValid(it.toString()) }
-                .subscribe {
-                    val color = if (it)  R.color.text else R.color.invalid
-                    email.setTextColor(getColor(context, color))
-                }
-                .addTo(disposableBag)
-            dateOfBirth.setOnClickListener { createDateDialog(context).show() }
-        }
-
+        email.textChanges()
+            .map { viewModel.isEmailValid(it.toString()) }
+            .subscribe {
+                val color = if (it) R.color.text else R.color.invalid
+                email.setTextColor(getColor(requireContext(), color))
+            }
+            .addTo(disposableBag)
+        dateOfBirth.setOnClickListener { createDateDialog(requireContext()).show() }
         //TODO Uzupełnić formularz tak jak na iOS
-
     }
 
     private fun createDateDialog(context: Context): DatePickerDialog {
