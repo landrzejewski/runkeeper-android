@@ -6,7 +6,7 @@ import pl.training.runkeeper.forecast.adapters.persistence.CityDb
 import pl.training.runkeeper.forecast.adapters.persistence.DayForecastDb
 import pl.training.runkeeper.forecast.adapters.persistence.ForecastDao
 
-@Database(entities = [CityDb::class, DayForecastDb::class], version = 1, exportSchema = false)
+@Database(entities = [CityDb::class, DayForecastDb::class], version = 5, exportSchema = false)
 abstract class ApplicationDatabase : RoomDatabase() {
 
     abstract fun forecastDao(): ForecastDao
