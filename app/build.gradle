@@ -56,6 +56,8 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:$datastore_version"
     implementation "androidx.preference:preference-ktx:1.1.1"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation "com.google.android.gms:play-services-maps:$play_services_version"
+    implementation "com.google.android.gms:play-services-location:$play_services_version"
     implementation "com.squareup.picasso:picasso:2.71828"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"

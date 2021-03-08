@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/tracking_tab"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/tab_tracking" />
+
+    <item
         android:id="@+id/forecast_tab"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/tab_forecast" />

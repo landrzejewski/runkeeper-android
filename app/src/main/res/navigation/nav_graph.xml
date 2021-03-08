@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/forecast_tab">
+    app:startDestination="@id/tracking_tab">
 
     <fragment
         android:id="@+id/forecast_tab"
@@ -17,6 +17,12 @@
             android:id="@+id/show_settings"
             app:destination="@id/SettingsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/tracking_tab"
+        android:name="pl.training.runkeeper.tracking.views.TrackingFragment"
+        android:label="Tracking"
+        tools:layout="@layout/fragment_tracking"/>
 
     <fragment
         android:id="@+id/profile_tab"
