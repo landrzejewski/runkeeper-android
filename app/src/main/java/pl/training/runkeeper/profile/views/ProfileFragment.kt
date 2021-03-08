@@ -3,6 +3,7 @@ package pl.training.runkeeper.profile.views
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import pl.training.runkeeper.R
 import pl.training.runkeeper.databinding.FragmentProfileBinding
+import pl.training.runkeeper.profile.models.User
 import pl.training.runkeeper.profile.viewmodels.ProfileViewModel
 import java.util.*
 
@@ -35,6 +37,7 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun bindViews() {
+        binding.user = User("", "", "", false)
         val email = binding.profileEmail
         val dateOfBirth = binding.profileBirthDate
         email.textChanges()
@@ -46,6 +49,10 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             .addTo(disposableBag)
         dateOfBirth.setOnClickListener { createDateDialog(requireContext()).show() }
         //TODO Uzupełnić formularz tak jak na iOS
+        binding.profileSave.setOnClickListener {
+            Log.d("###", binding.user?.subscriber.toString() ?: "")
+            binding.user = User("Jan", "", "", true)
+        }
     }
 
     private fun createDateDialog(context: Context): DatePickerDialog {

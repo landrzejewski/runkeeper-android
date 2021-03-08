@@ -18,4 +18,7 @@
     <string name="tab_profile">Profile</string>
     <string name="profile_personal_info">Personal info</string>
     <string name="profile_email_address">Email address</string>
+    <string name="profile_first_name">First name</string>
+    <string name="profile_save">Save</string>
+    <string name="profile_is_subscriber">Is subscriber</string>
 </resources>
