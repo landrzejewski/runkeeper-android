@@ -21,10 +21,12 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.PolylineOptions
 import pl.training.runkeeper.R
 import pl.training.runkeeper.RunKeeperApplication.Companion.applicationGraph
 import pl.training.runkeeper.commons.Logger
 import pl.training.runkeeper.databinding.FragmentTrackingBinding
+import pl.training.runkeeper.tracking.models.ActivityPoint
 import pl.training.runkeeper.tracking.viewmodels.TrackingViewModel
 import javax.inject.Inject
 
@@ -38,13 +40,14 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connect
     private lateinit var googleApiClient: GoogleApiClient
     private val mapPermissionRequestCode = 999
     private val locationPermissionRequestCode = 998
-    private val defaultZoom = 18F
+    private val defaultZoom = 16F
     private val locationCallback = object : LocationCallback() {
 
         override fun onLocationResult(locationResult: LocationResult?) {
             super.onLocationResult(locationResult)
             locationResult?.let { result ->
                 centerCameraOnLocation(result.lastLocation)
+                drawRoute(viewModel.onLocation(result.lastLocation))
             }
         }
 
@@ -155,6 +158,17 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connect
         val position = LatLng(location.latitude, location.longitude)
         val cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, defaultZoom)
         map?.animateCamera(cameraUpdate)
+    }
+
+    private fun drawRoute(points: Pair<ActivityPoint?, ActivityPoint>) {
+       points.first?.let {
+           val options = PolylineOptions()
+           options.color(R.color.black)
+           options.width(10F)
+           options.add(LatLng(it.latitude, it.longitude))
+           options.add(LatLng(points.second.latitude, points.second.longitude))
+           map?.addPolyline(options)
+       }
     }
 
 }
