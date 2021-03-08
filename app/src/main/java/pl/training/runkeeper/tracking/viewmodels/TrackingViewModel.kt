@@ -2,6 +2,9 @@ package pl.training.runkeeper.tracking.viewmodels
 
 import android.location.Location
 import androidx.lifecycle.ViewModel
+import pl.training.runkeeper.commons.formatPace
+import pl.training.runkeeper.commons.formatSpeed
+import pl.training.runkeeper.commons.formatTime
 import pl.training.runkeeper.tracking.models.ActivityPoint
 import java.util.*
 
@@ -12,6 +15,10 @@ class TrackingViewModel : ViewModel() {
     private var cumulativeDistance = 0F
     private var lastLocation: Location? = null
     private var lastPoint: ActivityPoint? = null
+
+    var currentSpeed = ""
+    var currentPace = ""
+    var currentDuration = ""
 
     fun start() {
         startTime = System.currentTimeMillis()
@@ -34,6 +41,10 @@ class TrackingViewModel : ViewModel() {
         val result = Pair(lastPoint, point)
         lastPoint = point
         lastLocation = location
+
+        currentSpeed = formatSpeed(point.speed)
+        currentPace = formatPace(point.pace)
+        currentDuration = formatTime(point.duration)
         return result
     }
 

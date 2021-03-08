@@ -47,6 +47,7 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connect
             super.onLocationResult(locationResult)
             locationResult?.let { result ->
                 centerCameraOnLocation(result.lastLocation)
+                updateStats()
                 drawRoute(viewModel.onLocation(result.lastLocation))
             }
         }
@@ -158,6 +159,14 @@ class TrackingFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Connect
         val position = LatLng(location.latitude, location.longitude)
         val cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, defaultZoom)
         map?.animateCamera(cameraUpdate)
+    }
+
+    private fun updateStats() {
+        with (binding) {
+            trackingDuration.text = viewModel.currentDuration
+            trackingSpeed.text = viewModel.currentSpeed
+            trackingPace.text = viewModel.currentPace
+        }
     }
 
     private fun drawRoute(points: Pair<ActivityPoint?, ActivityPoint>) {

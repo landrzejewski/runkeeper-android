@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text">#777</color>
     <color name="invalid">#f00</color>
+    <color name="stats">#55ffffff</color>
 </resources>
