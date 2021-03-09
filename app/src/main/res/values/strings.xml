@@ -25,4 +25,5 @@
     <string name="tracking_duration">Duration</string>
     <string name="tracking_speed">Speed</string>
     <string name="tracking_pace">Pace</string>
+    <string name="forecast_details_start">Start</string>
 </resources>
