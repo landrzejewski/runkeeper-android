@@ -32,11 +32,7 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private val cameraRequestCode = 1_000
     private lateinit var binding: FragmentProfileBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentProfileBinding.inflate(inflater)
         return binding.root
     }

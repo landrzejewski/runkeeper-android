@@ -26,4 +26,7 @@
     <string name="tracking_speed">Speed</string>
     <string name="tracking_pace">Pace</string>
     <string name="forecast_details_start">Start</string>
+    <string name="photos_take_photo">Take photo</string>
+    <string name="photos_image">Image</string>
+    <string name="tab_photos">Photos</string>
 </resources>
