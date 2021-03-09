@@ -1,8 +1,13 @@
 package pl.training.runkeeper.profile.views
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,9 +29,14 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private val disposableBag = CompositeDisposable()
     private val viewModel: ProfileViewModel by activityViewModels()
+    private val cameraRequestCode = 1_000
     private lateinit var binding: FragmentProfileBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentProfileBinding.inflate(inflater)
         return binding.root
     }
@@ -52,6 +62,19 @@ class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding.profileSave.setOnClickListener {
             Log.d("###", binding.user?.subscriber.toString() ?: "")
             binding.user = User("Jan", "", "", true)
+        }
+        binding.profilePhoto.setOnClickListener { takePhoto() }
+    }
+
+    private fun takePhoto() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, cameraRequestCode)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == cameraRequestCode && resultCode == RESULT_OK) {
+            val image = data?.extras?.get("data") as Bitmap
+            binding.profilePhoto.setImageBitmap(image)
         }
     }
 
