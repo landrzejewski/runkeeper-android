@@ -14,22 +14,22 @@ import androidx.camera.core.impl.ImageCaptureConfig
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
+import pl.training.runkeeper.R
+import pl.training.runkeeper.commons.views.Cross
 import pl.training.runkeeper.databinding.FragmentPhotosBinding
 
 class PhotosFragment : Fragment() {
 
-    private lateinit var binding: FragmentPhotosBinding
     private val requiredPermissions = arrayOf(CAMERA)
     private val permissionsRequestCode = 1_000
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentPhotosBinding.inflate(inflater)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_photos, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requestPermissions()
+        val cross = view.findViewById<Cross>(R.id.photos_cross)
     }
 
     private fun requestPermissions() {
