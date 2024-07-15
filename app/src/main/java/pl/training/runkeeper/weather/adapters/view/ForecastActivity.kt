@@ -1,5 +1,6 @@
 package pl.training.runkeeper.weather.adapters.view
 
+import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -8,7 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
+import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import pl.training.runkeeper.R
 import pl.training.runkeeper.commons.hideKeyboard
 import pl.training.runkeeper.commons.setDrawable
@@ -35,7 +37,8 @@ class ForecastActivity : AppCompatActivity() {
             insets
         }
         viewModel.forecast.observe(this, ::updateView)
-        binding.nextDaysForecastRecycler.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
+        val orientation = if (resources.configuration.orientation == SCREEN_ORIENTATION_PORTRAIT) HORIZONTAL else VERTICAL
+        binding.nextDaysForecastRecycler.layoutManager = LinearLayoutManager(this, orientation, false)
         binding.nextDaysForecastRecycler.adapter = forecastRecyclerViewAdapter
         binding.checkButton.setOnClickListener(::onForecastCheck)
     }
