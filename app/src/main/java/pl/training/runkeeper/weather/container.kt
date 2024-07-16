@@ -1,5 +1,9 @@
 package pl.training.runkeeper.weather
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level
+import pl.training.runkeeper.commons.AppIdInterceptor
 import pl.training.runkeeper.weather.adapters.provider.FakeForecastProvider
 import pl.training.runkeeper.weather.adapters.provider.openweather.OpenWeatherApi
 import pl.training.runkeeper.weather.adapters.provider.openweather.OpenWeatherProviderAdapter
@@ -11,9 +15,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private val fakeForecastProvider by lazy { FakeForecastProvider() }
 
+private val httpClient by lazy {
+    val loggingInterceptor = HttpLoggingInterceptor()
+    loggingInterceptor.level = Level.BASIC
+    OkHttpClient()
+        .newBuilder()
+        .addInterceptor(AppIdInterceptor())
+        .addInterceptor(loggingInterceptor)
+        .build()
+}
+
 private val openWeatherApi = Retrofit.Builder()
     .baseUrl("https://api.openweathermap.org/data/2.5/")
     .addConverterFactory(GsonConverterFactory.create())
+    .client(httpClient)
     .build()
     .create(OpenWeatherApi::class.java)
 

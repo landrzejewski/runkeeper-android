@@ -20,7 +20,7 @@ class OpenWeatherProviderMapper {
 
     fun toModel(dayForecastDto: DayForecastDto) = with(dayForecastDto) {
         val conditions = weather.first()
-        val iconName = icons[conditions.icon] ?: "ic_sun"
+        val iconName = icons[conditions.icon] ?: "ic_empty"
         val forecastDate = Date(date * 1_000)
         DayForecast(forecastDate, temperature.day, pressure, conditions.description, iconName)
     }
