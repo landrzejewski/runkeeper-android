@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -43,10 +44,8 @@ class ForecastActivity : AppCompatActivity() {
             insets
         }
         viewModel.viewState.observe(this, ::updateView)
-        val orientation =
-            if (resources.configuration.orientation == SCREEN_ORIENTATION_PORTRAIT) HORIZONTAL else VERTICAL
-        binding.nextDaysForecastRecycler.layoutManager =
-            LinearLayoutManager(this, orientation, false)
+        val orientation = if (resources.configuration.orientation == SCREEN_ORIENTATION_PORTRAIT) HORIZONTAL else VERTICAL
+        binding.nextDaysForecastRecycler.layoutManager = LinearLayoutManager(this, orientation, false)
         binding.nextDaysForecastRecycler.adapter = forecastRecyclerViewAdapter
         binding.checkButton.setOnClickListener(::onForecastCheck)
     }
@@ -60,7 +59,7 @@ class ForecastActivity : AppCompatActivity() {
         is Loaded<*> -> showForecast(viewState.get())
         is Failed -> {
             rest()
-            Toast.makeText(this, viewState.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, viewState.message, LENGTH_SHORT).show()
         }
     }
 
