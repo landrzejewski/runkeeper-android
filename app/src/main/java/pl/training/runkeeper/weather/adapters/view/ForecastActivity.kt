@@ -43,24 +43,24 @@ class ForecastActivity : AppCompatActivity() {
             insets
         }
         viewModel.viewState.observe(this, ::updateView)
-        val orientation = if (resources.configuration.orientation == SCREEN_ORIENTATION_PORTRAIT) HORIZONTAL else VERTICAL
-        binding.nextDaysForecastRecycler.layoutManager = LinearLayoutManager(this, orientation, false)
+        val orientation =
+            if (resources.configuration.orientation == SCREEN_ORIENTATION_PORTRAIT) HORIZONTAL else VERTICAL
+        binding.nextDaysForecastRecycler.layoutManager =
+            LinearLayoutManager(this, orientation, false)
         binding.nextDaysForecastRecycler.adapter = forecastRecyclerViewAdapter
         binding.checkButton.setOnClickListener(::onForecastCheck)
     }
 
-    private fun updateView(viewState: ViewState) {
-        when (viewState) {
-            is Initial -> rest()
-            is Loading -> {
-                rest()
-                binding.descriptionText.text = getString(R.string.loading)
-            }
-            is Loaded<*> -> showForecast(viewState.get())
-            is Failed -> {
-                rest()
-                Toast.makeText(this, viewState.message, Toast.LENGTH_SHORT).show()
-            }
+    private fun updateView(viewState: ViewState) = when (viewState) {
+        is Initial -> rest()
+        is Loading -> {
+            rest()
+            binding.descriptionText.text = getString(R.string.loading)
+        }
+        is Loaded<*> -> showForecast(viewState.get())
+        is Failed -> {
+            rest()
+            Toast.makeText(this, viewState.message, Toast.LENGTH_SHORT).show()
         }
     }
 
