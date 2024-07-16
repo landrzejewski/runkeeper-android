@@ -1,9 +1,10 @@
 package pl.training.runkeeper.weather.domain
 
+import pl.training.runkeeper.weather.ports.Forecast
 import pl.training.runkeeper.weather.ports.ForecastProvider
 
-class ForecastService(private val forecastProvider: ForecastProvider) {
+class ForecastService(private val forecastProvider: ForecastProvider): Forecast {
 
-    suspend fun getForecast(city: String) = forecastProvider.getForecast(city)
+    override suspend fun getForecast(city: String) = forecastProvider.getForecast(city)
 
 }
