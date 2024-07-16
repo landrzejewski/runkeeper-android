@@ -48,7 +48,7 @@ class ForecastActivity : AppCompatActivity() {
         binding.iconImage.setOnClickListener(::onShowDetails)
     }
 
-    private fun updateView(viewState: ViewState<List<DayForecastViewModel>>) {
+    private fun updateView(viewState: ViewState) {
 
 
         if (forecast.isNotEmpty()) {

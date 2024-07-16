@@ -20,13 +20,13 @@ import pl.training.runkeeper.weather.ports.RefreshForecastFailedException
 class ForecastViewModel : ViewModel() {
 
     private val forecastService = Container.forecastService()
-    private val state = MutableLiveData<ViewState<List<DayForecastViewModel>>>(Initial())
+    private val state = MutableLiveData<ViewState>(Initial)
 
-    val viewState: LiveData<ViewState<List<DayForecastViewModel>>> = state
+    val viewState: LiveData<ViewState> = state
 
     fun refreshForecast(city: String) {
         viewModelScope.launch {
-            state.postValue(Loading())
+            state.postValue(Loading)
             try {
                 val data = forecastService.getForecast(city)
                     .map(::toViewModel)
