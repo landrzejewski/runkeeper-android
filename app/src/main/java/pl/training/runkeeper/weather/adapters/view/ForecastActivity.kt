@@ -49,7 +49,6 @@ class ForecastActivity : AppCompatActivity() {
         binding.checkButton.setOnClickListener(::onForecastCheck)
     }
 
-    @Suppress("UNCHECKED_CAST")
     private fun updateView(viewState: ViewState) {
         when (viewState) {
             is Initial -> rest()
@@ -57,7 +56,7 @@ class ForecastActivity : AppCompatActivity() {
                 rest()
                 binding.descriptionText.text = getString(R.string.loading)
             }
-            is Loaded<*> -> showData(viewState.data as List<DayForecastViewModel>)
+            is Loaded<*> -> showData(viewState.get())
             is Failed -> {
                 rest()
                 Toast.makeText(this, viewState.message, Toast.LENGTH_SHORT).show()
