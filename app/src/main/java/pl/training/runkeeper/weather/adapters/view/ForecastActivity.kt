@@ -1,5 +1,6 @@
 package pl.training.runkeeper.weather.adapters.view
 
+import android.content.Intent
 import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 import android.os.Bundle
 import android.view.View
@@ -41,6 +42,7 @@ class ForecastActivity : AppCompatActivity() {
         binding.nextDaysForecastRecycler.layoutManager = LinearLayoutManager(this, orientation, false)
         binding.nextDaysForecastRecycler.adapter = forecastRecyclerViewAdapter
         binding.checkButton.setOnClickListener(::onForecastCheck)
+        binding.iconImage.setOnClickListener(::onShowDetails)
     }
 
     private fun updateView(forecast: List<DayForecastViewModel>) {
@@ -60,6 +62,12 @@ class ForecastActivity : AppCompatActivity() {
             view.hideKeyboard()
             viewModel.refreshForecast(city)
         }
+    }
+
+    private fun onShowDetails(view: View) {
+        val intent = Intent(this, ForecastDetailsActivity::class.java)
+        intent.putExtra("description", viewModel.forecast.value?.first()?.description)
+        startActivity(intent)
     }
 
 }
