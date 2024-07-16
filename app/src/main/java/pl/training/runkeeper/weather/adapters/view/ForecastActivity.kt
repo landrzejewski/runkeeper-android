@@ -1,6 +1,5 @@
 package pl.training.runkeeper.weather.adapters.view
 
-import android.content.Intent
 import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 import android.os.Bundle
 import android.view.View
@@ -8,7 +7,6 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import pl.training.runkeeper.R
 import pl.training.runkeeper.commons.ViewState
+import pl.training.runkeeper.commons.ViewState.Failed
+import pl.training.runkeeper.commons.ViewState.Initial
+import pl.training.runkeeper.commons.ViewState.Loaded
+import pl.training.runkeeper.commons.ViewState.Loading
 import pl.training.runkeeper.commons.hideKeyboard
 import pl.training.runkeeper.commons.setDrawable
 import pl.training.runkeeper.databinding.ActivityForecastBinding
@@ -45,27 +47,39 @@ class ForecastActivity : AppCompatActivity() {
         binding.nextDaysForecastRecycler.layoutManager = LinearLayoutManager(this, orientation, false)
         binding.nextDaysForecastRecycler.adapter = forecastRecyclerViewAdapter
         binding.checkButton.setOnClickListener(::onForecastCheck)
-        binding.iconImage.setOnClickListener(::onShowDetails)
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun updateView(viewState: ViewState) {
-
-
-        if (forecast.isNotEmpty()) {
-            val currentForecast = forecast.first()
-            binding.iconImage.setDrawable(currentForecast.iconName)
-            binding.descriptionText.text = currentForecast.description
-            binding.temperatureText.text = currentForecast.temperature
-            binding.pressureText.text = currentForecast.pressure
-            forecastRecyclerViewAdapter.update(forecast.drop(1))
-        } else {
-            binding.iconImage.setImageDrawable(null)
-            binding.descriptionText.text = getString(R.string.empty)
-            binding.temperatureText.text = getString(R.string.empty)
-            binding.pressureText.text = getString(R.string.empty)
-            forecastRecyclerViewAdapter.update(emptyList())
-            Toast.makeText(this, "Forecast refresh failed", Toast.LENGTH_LONG).show()
+        when (viewState) {
+            is Initial -> rest()
+            is Loading -> {
+                rest()
+                binding.descriptionText.text = getString(R.string.loading)
+            }
+            is Loaded<*> -> showData(viewState.data as List<DayForecastViewModel>)
+            is Failed -> {
+                rest()
+                Toast.makeText(this, viewState.message, Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    private fun showData(forecast: List<DayForecastViewModel>) {
+        val currentForecast = forecast.first()
+        binding.iconImage.setDrawable(currentForecast.iconName)
+        binding.descriptionText.text = currentForecast.description
+        binding.temperatureText.text = currentForecast.temperature
+        binding.pressureText.text = currentForecast.pressure
+        forecastRecyclerViewAdapter.update(forecast.drop(1))
+    }
+
+    private fun rest() {
+        binding.iconImage.setImageDrawable(null)
+        binding.descriptionText.text = getString(R.string.empty)
+        binding.temperatureText.text = getString(R.string.empty)
+        binding.pressureText.text = getString(R.string.empty)
+        forecastRecyclerViewAdapter.update(emptyList())
     }
 
     private fun onForecastCheck(view: View) {
@@ -74,12 +88,6 @@ class ForecastActivity : AppCompatActivity() {
             view.hideKeyboard()
             viewModel.refreshForecast(city)
         }
-    }
-
-    private fun onShowDetails(view: View) {
-        val intent = Intent(this, ForecastDetailsActivity::class.java)
-        intent.putExtra("description", viewModel.forecast.value?.first()?.description)
-        startActivity(intent)
     }
 
 }

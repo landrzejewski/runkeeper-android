@@ -24,9 +24,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".weather.adapters.view.ForecastDetailsActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
