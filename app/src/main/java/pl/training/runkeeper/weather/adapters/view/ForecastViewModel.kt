@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import pl.training.runkeeper.commons.ViewState
 import pl.training.runkeeper.commons.ViewState.Failed
@@ -13,13 +14,14 @@ import pl.training.runkeeper.commons.ViewState.Loading
 import pl.training.runkeeper.commons.formatDate
 import pl.training.runkeeper.commons.formatPressure
 import pl.training.runkeeper.commons.formatTemperature
-import pl.training.runkeeper.weather.Container
 import pl.training.runkeeper.weather.domain.DayForecast
+import pl.training.runkeeper.weather.ports.Forecast
 import pl.training.runkeeper.weather.ports.RefreshForecastFailedException
+import javax.inject.Inject
 
-class ForecastViewModel : ViewModel() {
+@HiltViewModel
+class ForecastViewModel @Inject constructor(private val forecastService: Forecast) : ViewModel() {
 
-    private val forecastService = Container.forecastService()
     private val state = MutableLiveData<ViewState>(Initial)
 
     val viewState: LiveData<ViewState> = state
