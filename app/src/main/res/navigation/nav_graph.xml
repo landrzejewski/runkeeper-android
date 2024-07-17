@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ForecastFragment">
+
+    <fragment
+        android:id="@+id/ForecastFragment"
+        android:name="pl.training.runkeeper.weather.adapters.view.ForecastFragment"
+        android:label="Runkeeper">
+        <action
+            android:id="@+id/show_forecast_details"
+            app:destination="@id/ForecastDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ForecastDetailsFragment"
+        android:name="pl.training.runkeeper.weather.adapters.view.ForecastDetailsFragment"
+        android:label="Runkepper" />
+
+</navigation>
