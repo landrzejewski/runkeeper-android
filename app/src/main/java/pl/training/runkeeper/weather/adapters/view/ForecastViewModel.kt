@@ -38,7 +38,7 @@ class ForecastViewModel : ViewModel() {
     }
 
     private fun toViewModel(dayForecast: DayForecast) = with(dayForecast) {
-        DayForecastViewModel(formatDate(data), formatTemperature(temperature), formatPressure(pressure), description, iconName)
+        DayForecastViewModel(formatDate(date), formatTemperature(temperature), formatPressure(pressure), description, iconName)
     }
 
 }
