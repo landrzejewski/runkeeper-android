@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import dagger.hilt.android.AndroidEntryPoint
 import pl.training.runkeeper.R
 import pl.training.runkeeper.commons.ViewState
 import pl.training.runkeeper.commons.ViewState.Failed
@@ -23,6 +24,7 @@ import pl.training.runkeeper.commons.hideKeyboard
 import pl.training.runkeeper.commons.setDrawable
 import pl.training.runkeeper.databinding.ActivityForecastBinding
 
+@AndroidEntryPoint
 class ForecastActivity : AppCompatActivity() {
 
     private val viewModel: ForecastViewModel by viewModels()
