@@ -31,6 +31,7 @@ class ForecastViewModel @Inject constructor(
 
     val viewState: LiveData<ViewState> = state
     val city: LiveData<String> = cityName
+    var selectedDayForecast: DayForecastViewModel? = null
 
     init {
         val city = store.get(CITY_KEY)
