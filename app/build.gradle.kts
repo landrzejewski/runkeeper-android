@@ -55,6 +55,7 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.room.compiler)
+    implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

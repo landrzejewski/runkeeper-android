@@ -46,6 +46,7 @@ class ForecastActivity : AppCompatActivity() {
             insets
         }
         viewModel.viewState.observe(this, ::updateView)
+        viewModel.city.observe(this, ::updateCity)
         val orientation = if (resources.configuration.orientation == SCREEN_ORIENTATION_PORTRAIT) HORIZONTAL else VERTICAL
         binding.nextDaysForecastRecycler.layoutManager = LinearLayoutManager(this, orientation, false)
         binding.nextDaysForecastRecycler.adapter = forecastRecyclerViewAdapter
@@ -63,6 +64,10 @@ class ForecastActivity : AppCompatActivity() {
             rest()
             Toast.makeText(this, viewState.message, LENGTH_SHORT).show()
         }
+    }
+
+    private fun updateCity(city: String) {
+        binding.cityNameText.text = city
     }
 
     private fun showForecast(forecast: List<DayForecastViewModel>) {
