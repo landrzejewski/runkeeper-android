@@ -6,6 +6,11 @@ import android.content.Intent.ACTION_AIRPLANE_MODE_CHANGED
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.os.Environment.MEDIA_MOUNTED
+import android.os.Environment.MEDIA_MOUNTED_READ_ONLY
+import android.os.Environment.getExternalStorageState
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +26,8 @@ import pl.training.runkeeper.commons.components.ForecastProvider.DatabaseHelper.
 import pl.training.runkeeper.commons.components.ForecastProvider.DatabaseHelper.Companion.DATE_COLUMN
 import pl.training.runkeeper.commons.components.SchedulerService
 import pl.training.runkeeper.databinding.ActivityMainBinding
+import java.io.File
+import java.nio.file.Files
 import java.util.Date
 
 
@@ -100,16 +107,40 @@ class RunkeeperMainActivity : AppCompatActivity() {
          */
 
         // Service
+        /*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(Intent(this, SchedulerService::class.java))
         } else {
             startService(Intent(this, SchedulerService::class.java))
         }
+        */
 
-        // File storage
+        // App file storage
 
+        openFileOutput("data.txt", MODE_PRIVATE).use {
+            it.write("To jest text".toByteArray())
+        }
+
+        openFileInput("data.txt").bufferedReader()
+            .forEachLine {
+                Log.i("###", it)
+            }
+
+        // External file storage
+        if (externalStorageExists() && externalStorageWritable()) {
+            val path = File(getExternalFilesDir("Data"), "app_data.txt").toPath()
+            Log.i("###", path.toString())
+            Files.write(path, "Hello".toByteArray())
+            Files.readAllLines(path).forEach {
+                Log.i("###", it)
+            }
+        }
 
     }
+
+    private fun externalStorageExists() = MEDIA_MOUNTED == getExternalStorageState()
+
+    private fun externalStorageWritable() = MEDIA_MOUNTED_READ_ONLY != getExternalStorageState()
 
     override fun onDestroy() {
         super.onDestroy()
