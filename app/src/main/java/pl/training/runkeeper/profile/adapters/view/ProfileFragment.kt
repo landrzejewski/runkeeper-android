@@ -29,7 +29,12 @@ import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import pl.training.runkeeper.commons.RoundedTransformation
+import pl.training.runkeeper.commons.view.Point
 import pl.training.runkeeper.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -46,6 +51,24 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        /*GlobalScope.launch(Dispatchers.Main) {
+            delay(5_000)
+            binding.customButton.enable()
+        }*/
+
+        binding.graph.draw(listOf(
+            Point(0f, 0f),
+            Point(1f, 8f),
+            Point(2F, 3f),
+            Point(3f, 7F),
+            Point(4f, 9F),
+            Point(5f, 4F)
+        ))
+
     }
 
     private fun initView() {
