@@ -1,5 +1,6 @@
 package pl.training.runkeeper.commons.components
 
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.app.Notification
 import android.app.Notification.CATEGORY_SERVICE
 import android.app.Notification.VISIBILITY_PRIVATE
@@ -9,12 +10,18 @@ import android.app.NotificationManager.IMPORTANCE_HIGH
 import android.app.NotificationManager.IMPORTANCE_NONE
 import android.app.Service
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Color
 import android.os.IBinder
 import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.checkSelfPermission
+import androidx.core.app.NotificationManagerCompat
 import pl.training.runkeeper.R
 import java.util.Timer
 import java.util.TimerTask
+import java.util.jar.Manifest
 
 class SchedulerService : Service() {
 
@@ -42,7 +49,13 @@ class SchedulerService : Service() {
     }
 
     private fun init() {
-        startForeground(ID, createNotification())
+        val thisContext = this
+        with(NotificationManagerCompat.from(this)) {
+            if (checkSelfPermission(thisContext, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
+                return
+            }
+            notify(ID, createNotification())
+        }
     }
 
     private fun createNotification(): Notification {

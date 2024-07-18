@@ -105,12 +105,16 @@ class RunkeeperMainActivity : AppCompatActivity() {
         } else {
             startService(Intent(this, SchedulerService::class.java))
         }
+
+        // File storage
+
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(airplaneModeReceiver)
-        stopService(Intent(this, SchedulerService::class.java))
+        // stopService(Intent(this, SchedulerService::class.java))
     }
 
 }
