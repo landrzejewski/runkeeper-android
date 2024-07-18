@@ -12,6 +12,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.IBinder
 import android.util.Log
+import pl.training.runkeeper.R
 import java.util.Timer
 import java.util.TimerTask
 
@@ -24,7 +25,7 @@ class SchedulerService : Service() {
         override fun run() {
             counter--
             Log.i("###", "Time to execution ${counter}s")
-            if (counter < 0) {
+            if (counter <= 0) {
                 timer.cancel()
                 Log.i("###", "Executing task")
             }
@@ -53,6 +54,7 @@ class SchedulerService : Service() {
         return Notification.Builder(this, CLIENT_ID)
             .setOngoing(true)
             .setContentTitle("Task is scheduled")
+            .setSmallIcon(R.drawable.ic_sun)
             .setCategory(CATEGORY_SERVICE)
             .build()
     }

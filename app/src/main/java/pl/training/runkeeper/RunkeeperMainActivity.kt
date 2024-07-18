@@ -4,9 +4,8 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.Intent.ACTION_AIRPLANE_MODE_CHANGED
 import android.content.IntentFilter
-import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -18,13 +17,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import pl.training.runkeeper.commons.components.AirplaneModeReceiver
-import pl.training.runkeeper.commons.components.ForecastProvider
-import pl.training.runkeeper.commons.components.ForecastProvider.Companion.CONTENT_URI
 import pl.training.runkeeper.commons.components.ForecastProvider.DatabaseHelper.Companion.CONDITIONS_COLUMN
 import pl.training.runkeeper.commons.components.ForecastProvider.DatabaseHelper.Companion.DATE_COLUMN
 import pl.training.runkeeper.commons.components.SchedulerService
 import pl.training.runkeeper.databinding.ActivityMainBinding
 import java.util.Date
+
 
 @AndroidEntryPoint
 class RunkeeperMainActivity : AppCompatActivity() {
@@ -102,13 +100,17 @@ class RunkeeperMainActivity : AppCompatActivity() {
          */
 
         // Service
-        val serviceIntent = Intent(this, SchedulerService::class.java)
-        startService(serviceIntent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(Intent(this, SchedulerService::class.java))
+        } else {
+            startService(Intent(this, SchedulerService::class.java))
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(airplaneModeReceiver)
+        stopService(Intent(this, SchedulerService::class.java))
     }
 
 }
