@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@id/TrackingFragment"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        android:title="@string/tab_tracking_title" />
+
+    <item
+        android:id="@id/ForecastFragment"
+        android:icon="@drawable/ic_weather"
+        android:title="@string/tab_forecast_title" />
+
+
+    <item
+        android:id="@id/ProfileFragment"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/tab_profile_title" />
+
+</menu>

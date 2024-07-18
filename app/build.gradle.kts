@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.preference)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.room.compiler)
