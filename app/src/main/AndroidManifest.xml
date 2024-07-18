@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:name=".RunkeeperApplication"
@@ -31,6 +33,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".commons.components.ForecastProvider"
+            android:authorities="pl.training.runkeeper.commons.components.ForecastProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:multiprocess="true"
+            android:readPermission="pl.training.runkeeper.ACCESS_FORECAST" />
+
+        <!-- In extrnal app manifest:
+
+            <permission android:name="pl.training.runkeeper.ACCESS_FORECAST"/>
+
+            <uses-permission android:name="pl.training.runkeeper.ACCESS_FORECAST"/>
+
+            <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+                tools:ignore="QueryAllPackagesPermission" />
+
+            <queries>
+                <provider android:authorities="pl.training.runkeeper.commons.components.ForecastProvider"/>
+            </queries>
+        -->
+
+        <service
+            android:name=".commons.components.SchedulerService"
+            android:enabled="true"
+            android:exported="true"
+            android:foregroundServiceType="dataSync" />
 
     </application>
 
