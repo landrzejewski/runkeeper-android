@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "pl.training.runkeeper"
-        minSdk = 31
+        minSdk = 34
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.picasso)
     implementation(libs.logging.interceptor)
     implementation(libs.hilt.android)
     implementation(libs.androidx.preference)

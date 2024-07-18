@@ -10,4 +10,5 @@
     <string name="tab_tracking_title">Tracking</string>
     <string name="tab_profile_title">Profile</string>
     <string name="settings_option">Settings</string>
+    <string name="profile_photo_description">Profile photo</string>
 </resources>
