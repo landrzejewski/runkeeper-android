@@ -13,9 +13,10 @@ data class Activity(
        addActivityPoint(0.0F, 0.0F, position)
     }
 
-    fun addActivityPoint(distanceChange: Float, speed: Float, position: Position) {
+    fun addActivityPoint(distanceChange: Float, speed: Float, position: Position): ActivityPoint{
         val activityPoint = createActivityPoint(distanceChange, speed, position)
         activityPoints.add(activityPoint)
+        return activityPoint
     }
 
     private fun createActivityPoint(distanceChange: Float, speed: Float, position: Position): ActivityPoint {
@@ -26,5 +27,7 @@ data class Activity(
     }
 
     private fun getDuration() = if (activityPoints.isEmpty()) 0 else System.currentTimeMillis() - activityPoints.first().timestamp
+
+    fun getLastActivityPoint(): ActivityPoint? = activityPoints.lastOrNull()
 
 }
