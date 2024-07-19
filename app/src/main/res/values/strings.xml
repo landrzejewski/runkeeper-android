@@ -11,4 +11,7 @@
     <string name="tab_profile_title">Profile</string>
     <string name="settings_option">Settings</string>
     <string name="profile_photo_description">Profile photo</string>
+    <string name="duration">Duration</string>
+    <string name="speed">Speed</string>
+    <string name="pace">Pace</string>
 </resources>

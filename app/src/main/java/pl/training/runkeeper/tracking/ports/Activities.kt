@@ -5,6 +5,6 @@ import pl.training.runkeeper.tracking.domain.ActivityType
 
 interface Activities {
 
-    fun startActivity(type: ActivityType): Activity
+    fun createActivity(type: ActivityType): Activity
 
 }
