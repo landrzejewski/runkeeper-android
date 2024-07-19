@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<pl.training.runkeeper.commons.view.LabeledImage
+   <!-- <pl.training.runkeeper.commons.view.LabeledImage
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,6 +29,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:label="Profile"
         app:image="@drawable/ic_cloud" />-->
+
+    <!--<pl.training.runkeeper.commons.view.CustomButton
+        android:id="@+id/customButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="50dp"
+        app:button_image="@drawable/ic_sun"
+        app:button_label="Refresh"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
+
 
     <!--<pl.training.runkeeper.commons.view.Signature
         android:layout_width="0dp"
@@ -41,18 +54,6 @@
     <!--<pl.training.runkeeper.commons.view.Box
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--<pl.training.runkeeper.commons.view.CustomButton
-        android:id="@+id/customButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="50dp"
-        app:button_image="@drawable/ic_sun"
-        app:button_label="Refresh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

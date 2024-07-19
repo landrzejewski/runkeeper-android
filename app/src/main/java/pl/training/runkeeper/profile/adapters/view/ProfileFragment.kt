@@ -55,11 +55,19 @@ class ProfileFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        /*GlobalScope.launch(Dispatchers.Main) {
+        /*
+        binding.image.setOnClickListener {
+            Log.i("###", "Click!")
+        }
+        */
+
+        /*
+        GlobalScope.launch(Dispatchers.Main) {
             delay(5_000)
             binding.customButton.enable()
-        }*/
-
+        }
+        */
+        /*
         binding.graph.draw(listOf(
             Point(0f, 0f),
             Point(1f, 8f),
@@ -68,7 +76,7 @@ class ProfileFragment : Fragment() {
             Point(4f, 9F),
             Point(5f, 4F)
         ))
-
+        */
     }
 
     private fun initView() {
