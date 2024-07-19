@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.preference)
     implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.room.compiler)
